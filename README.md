@@ -132,4 +132,4 @@ Developed by Aqeela Sahla, Rusdiansyah Alief Prasetya, dan Ahmad Syafi Nurroyyan
 
 Fakultas Ilmu Komputer, Universitas Brawijaya
 
-Project Tugas Akhir Mata Kuliah Sistem Terdistribusi & Pemrograman Java
+Project Tugas Akhir Mata Kuliah Basis Data Semester 2

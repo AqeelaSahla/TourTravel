@@ -107,8 +107,11 @@ ZXing library (QR Code)
 4. Sesuaikan konfigurasi database di file DBConnection.java:
 
 String url = "jdbc:sqlserver://localhost:1433;databaseName=TourTravel";
+
 String user = "sa";
+
 String password = "your_password";
+
 Jalankan LoginFrame.java
 
 🛠️ Kontribusi
@@ -124,6 +127,7 @@ Lisensi bebas untuk keperluan akademik dan pengembangan pribadi.
 Dilarang menjual ulang tanpa izin tertulis.
 
 👤 Author
+
 Developed by Aqeela Sahla, Rusdiansyah Alief Prasetya, dan Ahmad Syafi Nurroyyan
 
 Fakultas Ilmu Komputer, Universitas Brawijaya

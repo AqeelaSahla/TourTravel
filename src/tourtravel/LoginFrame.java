@@ -14,34 +14,93 @@ public class LoginFrame extends JFrame {
 
     public LoginFrame() {
         setTitle("Login");
-        setSize(400, 500);
+        setSize(900, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setResizable(true);
         setLayout(new BorderLayout());
 
-        JLabel background = new JLabel(new ImageIcon("Assets/Bg.png"));
+        // Create scaled background
+        ImageIcon originalIcon = new ImageIcon("Assets/Bg.png");
+        Image scaledImage = originalIcon.getImage().getScaledInstance(900, 700, Image.SCALE_SMOOTH);
+        JLabel background = new JLabel(new ImageIcon(scaledImage));
         background.setLayout(new GridBagLayout());
-        add(background);
-
-        JPanel formPanel = new JPanel(new GridLayout(5, 1, 10, 10));
+        add(background); // Create form panel with better layout
+        JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setOpaque(false);
+        formPanel.setBorder(BorderFactory.createEmptyBorder(30, 40, 30, 40));
+        formPanel.setBackground(new Color(0, 0, 0, 50));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(15, 15, 15, 15);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
 
-        emailField = new JTextField();
-        passwordField = new JPasswordField();
+        // Create and style components
+        emailField = new JTextField(25);
+        emailField.setPreferredSize(new Dimension(300, 40));
+        emailField.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        formPanel.add(new JLabel("Email atau Nomor Telepon"));
-        formPanel.add(emailField);
-        formPanel.add(new JLabel("Password"));
-        formPanel.add(passwordField);
+        passwordField = new JPasswordField(25);
+        passwordField.setPreferredSize(new Dimension(300, 40));
+        passwordField.setFont(new Font("Arial", Font.PLAIN, 14)); // Add LOGIN title
+        JLabel titleLabel = new JLabel("LOGIN", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setForeground(new Color(40, 40, 40));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        formPanel.add(titleLabel, gbc); // Add email label and field
+        JLabel emailLabel = new JLabel("Email atau Nomor Telepon");
+        emailLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        emailLabel.setForeground(new Color(50, 50, 50));
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        formPanel.add(emailLabel, gbc);
 
-        JPanel buttonPanel = new JPanel(new FlowLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        formPanel.add(emailField, gbc); // Add password label and field
+        JLabel passwordLabel = new JLabel("Password");
+        passwordLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        passwordLabel.setForeground(new Color(50, 50, 50));
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        formPanel.add(passwordLabel, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        formPanel.add(passwordField, gbc);
+
+        // Add button panel
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
         buttonPanel.setOpaque(false);
+
         loginButton = new JButton("Masuk");
+        loginButton.setPreferredSize(new Dimension(120, 40));
+        loginButton.setFont(new Font("Arial", Font.BOLD, 14));
+        loginButton.setBackground(new Color(70, 130, 180));
+        loginButton.setForeground(Color.WHITE);
+        loginButton.setFocusPainted(false);
+
         registerButton = new JButton("Daftar");
+        registerButton.setPreferredSize(new Dimension(120, 40));
+        registerButton.setFont(new Font("Arial", Font.BOLD, 14));
+        registerButton.setBackground(new Color(100, 149, 237));
+        registerButton.setForeground(Color.WHITE);
+        registerButton.setFocusPainted(false);
+
         buttonPanel.add(loginButton);
         buttonPanel.add(registerButton);
 
-        formPanel.add(buttonPanel);
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(20, 15, 15, 15);
+        formPanel.add(buttonPanel, gbc);
 
         background.add(formPanel);
 
@@ -73,7 +132,8 @@ public class LoginFrame extends JFrame {
                 dispose();
                 new HomeFrame(userId, nama).setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(this, "Email/No. Telp atau Password salah", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Email/No. Telp atau Password salah", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + ex.getMessage());
@@ -93,52 +153,174 @@ class RegisterFrame extends JFrame {
     private JButton registerButton;
 
     public RegisterFrame() {
-        setTitle("Daftar Akun");
-        setSize(400, 600);
+        setSize(900, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setResizable(true);
         setLayout(new BorderLayout());
 
-        JLabel background = new JLabel(new ImageIcon("Assets/Bg.png"));
-        background.setLayout(new GridBagLayout());
-        add(background);
+        // Create scaled background
+        ImageIcon originalIcon = new ImageIcon("Assets/Bg.png");
+        Image scaledImage = originalIcon.getImage().getScaledInstance(900, 700, Image.SCALE_SMOOTH);
+        JLabel background = new JLabel(new ImageIcon(scaledImage));
+        background.setLayout(new BorderLayout());
+        add(background); // Create main wrapper panel to center the form
+        JPanel wrapperPanel = new JPanel(new GridBagLayout());
+        wrapperPanel.setOpaque(false);
 
-        JPanel formPanel = new JPanel(new GridLayout(8, 1, 10, 10));
+        // Create form panel with better layout
+        JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setOpaque(false);
+        formPanel.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
+        formPanel.setPreferredSize(new Dimension(400, 500));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(6, 10, 6, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
 
-        namaField = new JTextField();
-        emailField = new JTextField();
-        telpField = new JTextField();
-        passwordField = new JPasswordField();
+        // Add top spacer to push form down
+        JLabel topSpacer = new JLabel(" ");
+        topSpacer.setPreferredSize(new Dimension(1, 80));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        formPanel.add(topSpacer, gbc);
+
+        // Reset insets for form components
+        gbc.insets = new Insets(6, 10, 6, 10); // Create and style components with consistent sizing
+        namaField = new JTextField(25);
+        namaField.setPreferredSize(new Dimension(300, 40));
+        namaField.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        emailField = new JTextField(25);
+        emailField.setPreferredSize(new Dimension(300, 40));
+        emailField.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        telpField = new JTextField(25);
+        telpField.setPreferredSize(new Dimension(300, 40));
+        telpField.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        passwordField = new JPasswordField(25);
+        passwordField.setPreferredSize(new Dimension(300, 40));
+        passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        domisiliField = new JTextField(25);
+        domisiliField.setPreferredSize(new Dimension(300, 40));
+        domisiliField.setFont(new Font("Arial", Font.PLAIN, 14));
         maleRadio = new JRadioButton("Laki-laki");
+        maleRadio.setOpaque(false);
+        maleRadio.setForeground(new Color(30, 30, 30));
+        maleRadio.setFont(new Font("Arial", Font.BOLD, 14));
+
         femaleRadio = new JRadioButton("Perempuan");
-        domisiliField = new JTextField();
+        femaleRadio.setOpaque(false);
+        femaleRadio.setForeground(new Color(30, 30, 30));
+        femaleRadio.setFont(new Font("Arial", Font.BOLD, 14));
         ButtonGroup genderGroup = new ButtonGroup();
         genderGroup.add(maleRadio);
-        genderGroup.add(femaleRadio);
+        genderGroup.add(femaleRadio); // Add form components with labels
+        JLabel namaLabel = new JLabel("Nama Lengkap");
+        namaLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        namaLabel.setForeground(new Color(50, 50, 50));
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(5, 15, 3, 15);
+        formPanel.add(namaLabel, gbc);
 
-        formPanel.add(new JLabel("Nama Lengkap"));
-        formPanel.add(namaField);
-        formPanel.add(new JLabel("Email"));
-        formPanel.add(emailField);
-        formPanel.add(new JLabel("Nomor Telepon"));
-        formPanel.add(telpField);
-        formPanel.add(new JLabel("Password"));
-        formPanel.add(passwordField);
-        formPanel.add(new JLabel("Domisili"));
-        formPanel.add(domisiliField);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(0, 15, 6, 15);
+        formPanel.add(namaField, gbc);
+        JLabel emailLabel = new JLabel("Email");
+        emailLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        emailLabel.setForeground(new Color(50, 50, 50));
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(5, 15, 3, 15);
+        formPanel.add(emailLabel, gbc);
 
-        JPanel genderPanel = new JPanel(new FlowLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(0, 15, 6, 15);
+        formPanel.add(emailField, gbc);
+        JLabel telpLabel = new JLabel("Nomor Telepon");
+        telpLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        telpLabel.setForeground(new Color(50, 50, 50));
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(5, 15, 3, 15);
+        formPanel.add(telpLabel, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(0, 15, 6, 15);
+        formPanel.add(telpField, gbc);
+        JLabel passwordLabel = new JLabel("Password");
+        passwordLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        passwordLabel.setForeground(new Color(50, 50, 50));
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(5, 15, 3, 15);
+        formPanel.add(passwordLabel, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(0, 15, 6, 15);
+        formPanel.add(passwordField, gbc);
+        JLabel domisiliLabel = new JLabel("Domisili");
+        domisiliLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        domisiliLabel.setForeground(new Color(50, 50, 50));
+        gbc.gridx = 0;
+        gbc.gridy = 9;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(5, 15, 3, 15);
+        formPanel.add(domisiliLabel, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(0, 15, 6, 15);
+        formPanel.add(domisiliField, gbc);
+        JLabel genderLabel = new JLabel("Jenis Kelamin");
+        genderLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        genderLabel.setForeground(new Color(50, 50, 50));
+        gbc.gridx = 0;
+        gbc.gridy = 11;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(5, 15, 3, 15);
+        formPanel.add(genderLabel, gbc);
+        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         genderPanel.setOpaque(false);
         genderPanel.add(maleRadio);
         genderPanel.add(femaleRadio);
-        formPanel.add(new JLabel("Jenis Kelamin"));
-        formPanel.add(genderPanel);
+        gbc.gridx = 0;
+        gbc.gridy = 12;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(0, 15, 8, 15);
+        formPanel.add(genderPanel, gbc);
 
         registerButton = new JButton("Daftar");
-        formPanel.add(registerButton);
-
-        background.add(formPanel);
+        registerButton.setPreferredSize(new Dimension(150, 40));
+        registerButton.setFont(new Font("Arial", Font.BOLD, 14));
+        registerButton.setBackground(new Color(70, 130, 180));
+        registerButton.setForeground(Color.WHITE);
+        registerButton.setFocusPainted(false);
+        gbc.gridx = 0;
+        gbc.gridy = 13;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(15, 15, 10, 15);
+        formPanel.add(registerButton, gbc);// Add the form panel to wrapper panel and then to background
+        wrapperPanel.add(formPanel);
+        background.add(wrapperPanel, BorderLayout.CENTER);
 
         registerButton.addActionListener(e -> register());
 
@@ -155,8 +337,10 @@ class RegisterFrame extends JFrame {
         String gender3 = String.valueOf(gender2);
         String domisili = domisiliField.getText().trim();
 
-        if (nama.isEmpty() || email.isEmpty() || telp.isEmpty() || password.isEmpty() || gender.isEmpty() || domisili.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Mohon lengkapi semua data.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        if (nama.isEmpty() || email.isEmpty() || telp.isEmpty() || password.isEmpty() || gender.isEmpty()
+                || domisili.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mohon lengkapi semua data.", "Peringatan",
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -168,7 +352,8 @@ class RegisterFrame extends JFrame {
             checkStmt.setString(2, telp);
             ResultSet rs = checkStmt.executeQuery();
             if (rs.next()) {
-                JOptionPane.showMessageDialog(this, "Email atau No. Telepon sudah terdaftar.", "Gagal", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Email atau No. Telepon sudah terdaftar.", "Gagal",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -191,7 +376,8 @@ class RegisterFrame extends JFrame {
             }
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }
